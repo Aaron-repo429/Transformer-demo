@@ -3,19 +3,24 @@ from torch import nn
 import torch.nn.functional as F
 import math
 
+from Attention import MultiHeadAttention
+from Embedding import TransformerEmbedding
+from Encoder import PositionwiseFeedForward
+
+
 class DecoderLayer(nn.Module):
     def __init__(self,d_model,ffn_hidden,n_head,drop_prob):
         super(DecoderLayer,self).__init__()
-        self.attention1=MutiHeadAttention(d_model,n_head)
-        self.norm1=LayerNorm(d_model)
+        self.attention1=MultiHeadAttention(d_model,n_head)
+        self.norm1=nn.LayerNorm(d_model)
         self.dropout1=nn.Dropout(drop_prob)
-        self.cross_attention=MutiHeadAttention(d_model,n_head)
-        self.norm2=LayerNorm(d_model)
+        self.cross_attention=MultiHeadAttention(d_model,n_head)
+        self.norm2=nn.LayerNorm(d_model)
         self.dropout2=nn.Dropout(drop_prob)
         self.ffn=PositionwiseFeedForward(d_model,ffn_hidden,drop_prob)
-        self.norm3=LayerNorm(d_model)
+        self.norm3=nn.LayerNorm(d_model)
         self.dropout3=nn.Dropout(drop_prob)
-    def forward(self,dec,enc,t_mask,s_mask)
+    def forward(self,dec,enc,t_mask,s_mask):
         _x=dec
         x=self.attention1(dec,dec,dec,t_mask)
         x=self.dropout1(x)
@@ -31,7 +36,7 @@ class DecoderLayer(nn.Module):
 
 
 class Decoder(nn.Module):
-    def __init__(self, dec_voc_size, max_len, d_model, ffn_hidden, n_head, n_layer, drop_prob, device)
+    def __init__(self, dec_voc_size, max_len, d_model, ffn_hidden, n_head, n_layer, drop_prob, device):
         super(Decoder).__init__()
         self.embedding = TransformerEmbedding(
             dec_voc_size, d_model, max_len, drop_prob, device
