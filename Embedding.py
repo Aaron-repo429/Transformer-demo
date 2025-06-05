@@ -7,10 +7,6 @@ import math
 random_torch=torch.rand(4,4)
 print(random_torch)
 
-# tensor([[0.9582, 0.8824, 0.2970, 0.6183],
-#         [0.8823, 0.2330, 0.0211, 0.8860],
-#         [0.4574, 0.4353, 0.9020, 0.4139],
-#         [0.0921, 0.0326, 0.5002, 0.8015]])
 
 from torch import Tensor
 #将输入的词汇表索引转换为指定维度的Embedding
